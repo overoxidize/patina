@@ -1,0 +1,13 @@
+# For documentation on how to configure this file,
+# see https://diesel.rs/guides/configuring-diesel-cli
+
+[print_schema]
+file = "src/schema.rs"
+import_types = ["diesel::sql_types::*", 
+
+"crate::cryptocurrency::Coin_status_enum",
+"crate::cryptocurrency::Consensus_mechanism_enum",
+"crate::exchange::Exchange_type_enum"
+]
+[migrations_directory]
+dir = "migrations"
