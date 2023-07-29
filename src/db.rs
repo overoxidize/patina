@@ -62,25 +62,25 @@ fn all_exchanges_chronological(conn: &mut PgConnection) -> Vec<Exchange> {
         .unwrap()
 }
 
-// fn exchange_by_id(conn: &PgConnection, exchange_id: i64) -> Exchange {
-//     cryptocurrencys::table
-//         .filter(exchanges::id.eq(exchange_id))
-//         .first(conn)
-//         .unwrap()
-// }
+fn exchange_by_id(conn: &PgConnection, exchange_id: i64) -> Exchange {
+    exchange::table
+        .filter(exchanges::id.eq(exchange_id))
+        .first(conn)
+        .unwrap()
+}
 
-// fn cryptocurrency_by_name(conn: &PgConnection, crypto_name: String) -> Cryptocurrency {
-//     cryptocurrencys::table
-//         .filter(cryptocurrencys::currency_name.eq(crypto_name))
-//         .first(conn)
-//         .unwrap()
-// }
+fn exchange_by_name(conn: &PgConnection, crypto_name: String) -> Cryptocurrency {
+    exchange::table
+        .filter(cryptocurrencys::currency_name.eq(crypto_name))
+        .first(conn)
+        .unwrap()
+}
 
-// fn recent_cryptocurrency(conn: &PgConnection) -> Vec<Cryptocurrency> {
-//     let past_day = chrono::Utc::now() - chrono::Duration::days(1);
+fn recent_exchange(conn: &PgConnection) -> Vec<Cryptocurrency> {
+    let past_day = chrono::Utc::now() - chrono::Duration::days(1);
 
-//     cryptocurrencys::table
-//         .filter(cryptocurrencys::created_at.ge(past_day))
-//         .load(conn)
-//         .unwrap()
-// }
+    exchange::table
+        .filter(cryptocurrencys::created_at.ge(past_day))
+        .load(conn)
+        .unwrap()
+}
