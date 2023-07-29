@@ -63,24 +63,24 @@ fn all_exchanges_chronological(conn: &mut PgConnection) -> Vec<Exchange> {
 }
 
 fn exchange_by_id(conn: &PgConnection, exchange_id: i64) -> Exchange {
-    exchange::table
+    exchanges::table
         .filter(exchanges::id.eq(exchange_id))
         .first(conn)
         .unwrap()
 }
 
-fn exchange_by_name(conn: &PgConnection, crypto_name: String) -> Cryptocurrency {
-    exchange::table
-        .filter(cryptocurrencys::currency_name.eq(crypto_name))
+fn exchange_by_name(conn: &PgConnection, crypto_name: String) -> Exchange {
+    exchanges::table
+        .filter(exchanges::exchange_name.eq(crypto_name))
         .first(conn)
         .unwrap()
 }
 
-fn recent_exchange(conn: &PgConnection) -> Vec<Cryptocurrency> {
+fn recent_exchange(conn: &PgConnection) -> Vec<Exchange > {
     let past_day = chrono::Utc::now() - chrono::Duration::days(1);
 
-    exchange::table
-        .filter(cryptocurrencys::created_at.ge(past_day))
+    exchanges::table
+        .filter(exchanges::created_at.ge(past_day))
         .load(conn)
         .unwrap()
 }

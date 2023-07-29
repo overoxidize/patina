@@ -1,5 +1,6 @@
 use crate::schema::*;
-#[derive(Debug, serde::Deserialize, serde::Serialize, diesel::Queryable, QueryableByName)]
+use diesel::{QueryId, QueryableByName, Queryable};
+#[derive(Debug, serde::Deserialize, serde::Serialize, Queryable, QueryableByName, PartialEq, Eq, QueryId)]
 #[serde(rename_all = "camelCase")]
 #[table_name = "exchanges"]
 #[diesel(check_for_backend(diesel::pg::Pg))]
@@ -15,7 +16,7 @@ pub struct Exchange {
 #[derive(serde::Deserialize, serde::Serialize)]
 pub struct ExchangeVolume(u32);
 
-#[derive(Debug, serde::Deserialize, serde::Serialize, diesel_derive_enum::DbEnum)] // https://crates.io/crates/diesel-derive-enum
+#[derive(Debug, serde::Deserialize, serde::Serialize, diesel_derive_enum::DbEnum, Eq, PartialEq)] // https://crates.io/crates/diesel-derive-enum
 #[serde(rename_all = "camelCase")]
 
 #[DieselType = "Exchange_type_enum"]

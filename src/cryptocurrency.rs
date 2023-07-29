@@ -1,4 +1,5 @@
-#[derive(Debug, serde::Deserialize, serde::Serialize, diesel::Queryable)]
+use diesel::{QueryId, QueryableByName, Queryable};
+#[derive(Debug, serde::Deserialize, serde::Serialize, Queryable, QueryId, Eq, PartialEq)]
 #[serde(rename_all = "camelCase")]
 #[diesel(check_for_backend(diesel::pg::Pg))]
 
@@ -14,7 +15,7 @@ pub struct Cryptocurrency {
 }
 
 
-#[derive(Debug, serde::Deserialize, serde::Serialize, diesel_derive_enum::DbEnum)]
+#[derive(Debug, serde::Deserialize, serde::Serialize, diesel_derive_enum::DbEnum, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 #[DieselType = "Coin_status_enum"]
 pub enum CoinStatusEnum {
@@ -22,7 +23,7 @@ pub enum CoinStatusEnum {
     Active,
 }
 
-#[derive(serde::Deserialize, serde::Serialize, diesel_derive_enum::DbEnum)]
+#[derive(serde::Deserialize, serde::Serialize, diesel_derive_enum::DbEnum, PartialEq, Eq)]
 #[derive(Debug)]
 #[DieselType = "Consensus_mechanism_enum"]
 pub enum ConsensusMechanismEnum {
